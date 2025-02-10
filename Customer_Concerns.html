@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Concerns</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            width: 90%;
+            text-align: left;
+        }
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        textarea {
+            min-height: 150px;
+            max-height: 400px;
+            resize: vertical;
+            overflow-y: auto;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Report Your Concern</h2>
+        <div class="form-group">
+            <label for="userEmail">Enter your email <span class="required">*</span></label>
+            <input type="email" id="userEmail" placeholder="Your email address">
+        </div>
+        <div class="form-group">
+            <label for="issue">Describe your issue in detail:</label>
+            <textarea id="issue" placeholder="Describe your concern..." oninput="autoResize(this)"></textarea>
+        </div>
+        <br>
+        <button onclick="sendEmail()">Report</button>
+    </div>
+
+    <script>
+        function autoResize(textarea) {
+            textarea.style.height = "auto";
+            textarea.style.height = (textarea.scrollHeight) + "px";
+        }
+
+        function sendEmail() {
+            var userEmail = document.getElementById('userEmail').value;
+            var issueText = document.getElementById('issue').value;
+            
+            if (userEmail.trim() === "") {
+                alert("Please enter your email address.");
+                return;
+            }
+            if (issueText.trim() === "") {
+                alert("Please enter a description of your issue.");
+                return;
+            }
+            
+            var email = "samagyasharma05@gmail.com";
+            var subject = "Customer Concern Report";
+            var body = encodeURIComponent("From: " + userEmail + "\n\n" + issueText);
+            
+            var gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${body}`;
+            
+            window.open(gmailUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
